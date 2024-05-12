@@ -1,0 +1,2 @@
+--Ejemplo para ver que funcione.
+--create table area(base int, altur int);

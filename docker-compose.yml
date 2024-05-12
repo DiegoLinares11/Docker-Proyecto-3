@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  db_postgres: 
+    image: postgres:latest
+    restart: always
+    container_name: Contenedor
+    hostname: postgres
+    environment: 
+      POSTGRES_DB: proyecto
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+    volumes: 
+      - postgres-data:/var/lib/postgresql/data
+      - ./db/Script.sql:/docker-entrypoint-initdb.d/Script.sql
+    ports:
+      - "1010:5432"
+
+  oracle:
+    image: container-registry.oracle.com/database/free:latest
+    ports:
+      - "1520:1521"
+    environment:
+      - ORACLE_PWD=oracle1
+    volumes:
+      - oracle-data:/u01/app/oracle/oradata
+
+  oracle2:
+    image: container-registry.oracle.com/database/free:latest
+    ports:
+      - "1523:1521"
+    environment:
+      - ORACLE_PWD=oracle2
+    volumes:
+      - oracle2-data:/u01/app/oracle/oradata
+
+volumes:
+  postgres-data:
+    driver: 'local'
+  oracle-data:
+    driver: 'local'
+  oracle2-data:
+    driver: 'local'
+
+
+  
